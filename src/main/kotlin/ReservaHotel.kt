@@ -1,4 +1,4 @@
-import dominio.Reserva
+package dominio
 
 class ReservaHotel private constructor(descripcion: String, fechaCreacion: String, ubicacion: String, numeroCoches: String) : Reserva() {
     companion object {
