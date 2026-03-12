@@ -3,5 +3,10 @@ import datos.IReservaRepositorio
 import presentacion.Consola
 
 class ReservaService(private val repoReservas: IReservaRepositorio) {
-val consola = Consola()
+private val consola = Consola()
+    fun iniciar(): String {
+        consola.menuPrincipal()
+        return readln()
+    }
+    fun eje
 }
