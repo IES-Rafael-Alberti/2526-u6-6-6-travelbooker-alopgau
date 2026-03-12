@@ -1,5 +1,7 @@
 package aplicacion
 import datos.IReservaRepositorio
-class ReservaService(private val repoReservas: IReservaRepositorio) {
+import presentacion.Consola
 
+class ReservaService(private val repoReservas: IReservaRepositorio) {
+val consola = Consola()
 }
