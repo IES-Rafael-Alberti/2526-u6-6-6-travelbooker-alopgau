@@ -1,4 +1,4 @@
-package org.practicatrim2
+package dominio
 /* Reserva (Superclase o Interfaz):
 Contendrá la lógica común a todas las reservas, aunque no se permitirá la creación de una instancia de la misma.
 Posee un id. Se asigna automáticamente al crear la instancia. No puede ser nula y no se puede modificar.
