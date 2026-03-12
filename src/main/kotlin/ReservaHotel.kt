@@ -11,5 +11,5 @@ class ReservaHotel private constructor(descripcion: String, fechaCreacion: Strin
     val ubicacion = ubicacion
     val numeroCoches = numeroCoches
 
-    override fun toString() = "$descripcion\nUbicacion: $ubicacion\nDestino: $numeroCoches"
+    override fun toString() = "$descripcion\nUbicacion: $ubicacion\n Numero de coches: $numeroCoches"
 }
