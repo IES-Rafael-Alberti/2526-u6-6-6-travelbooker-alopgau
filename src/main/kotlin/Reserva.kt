@@ -9,15 +9,16 @@ Debe incluir una propiedad detalle, cuyo getter utilice la lógica común para c
 abstract class Reserva() {
     companion object {
         var contador = 0
+        val regex = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])".toRegex()
     }
 val id: Int
-private val fechaCreacion: String
-private val descripcion: String
-val detalle: String
+abstract val fechaCreacion: String
+abstract val descripcion: String
+open val detalle: String
     get() = "$id-$descripcion"
     init {
         contador++
         id=contador
-        require()
+        require(regex.matches(fechaCreacion) )
     }
 }
