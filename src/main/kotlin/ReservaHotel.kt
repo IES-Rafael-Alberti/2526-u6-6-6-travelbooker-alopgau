@@ -1,17 +1,17 @@
 package dominio
 
-class ReservaHotel private constructor(descripcion: String, fechaCreacion: String, ubicacion: String, numeroCoches: Int) : Reserva() {
+class ReservaHotel private constructor(descripcion: String, fechaCreacion: String, ubicacion: String, numeroNoches: Int) : Reserva() {
     companion object {
-        fun creaInstancia(descripcion: String,fechaCreacion: String,ubicacion: String,numeroCoches: Int) = ReservaHotel(descripcion,fechaCreacion,ubicacion,numeroCoches)
+        fun creaInstancia(descripcion: String,fechaCreacion: String,ubicacion: String,numeroNoches: Int) = ReservaHotel(descripcion,fechaCreacion,ubicacion,numeroNoches)
     }
     override val descripcion = descripcion
     override val fechaCreacion = fechaCreacion
     override val detalle: String
-        get() = "${super.detalle}-$ubicacion ($numeroCoches)"
+        get() = "${super.detalle}-$ubicacion ($numeroNoches)"
     val ubicacion = ubicacion
-    val numeroCoches = numeroCoches
+    val numeroNoches = numeroNoches
 
-    override fun toString() = "$descripcion\nUbicacion: $ubicacion\n Numero de coches: $numeroCoches"
+    override fun toString() = "$descripcion\nUbicacion: $ubicacion\n Numero de noches: $numeroNoches"
     init {
         require(regex.matches(fechaCreacion))
     }

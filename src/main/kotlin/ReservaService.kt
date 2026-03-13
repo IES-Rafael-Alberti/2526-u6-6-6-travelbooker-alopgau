@@ -7,13 +7,13 @@ import presentacion.Consola
 
 class ReservaService(private val repoReservas: IReservaRepositorio) {
     fun ejecutar() {
-        val entrada = pantallaInicio()
-        procesarOpcionMenu(entrada)
+        pantallaInicio()
     }
     private val consola = Consola()
-    private fun pantallaInicio(): String {
+    private fun pantallaInicio() {
         consola.menuPrincipal()
-        return consola.pedirEntrada()
+        val entrada = consola.pedirEntrada()
+        procesarOpcionMenu(entrada)
     }
     private fun procesarOpcionMenu(entrada: String) {
         when (entrada) {
@@ -48,7 +48,10 @@ class ReservaService(private val repoReservas: IReservaRepositorio) {
                 consola.imprimirMensaje("Introduce la ubicacion del hotel")
                 val ubicacion = consola.pedirEntrada()
 
-                repoReservas.agregarReserva(hacerReservaHotel(descripcion,fechaCreacion,ubicacion,numeroCoches=90))
+                consola.imprimirMensaje("Introduce el número de noches de tu estancia")
+                val numeroNoches = consola.pedirEntrada().toIntOrNull()?:1
+
+                repoReservas.agregarReserva(hacerReservaHotel(descripcion,fechaCreacion,ubicacion,numeroNoches))
             }
             else -> consola.imprimirMensaje("Escoge una de las opciones indicadas")
         }
@@ -60,5 +63,5 @@ class ReservaService(private val repoReservas: IReservaRepositorio) {
             return repoReservas.obtenerTodas()
     }
     private fun hacerReservaVuelo(descripcion: String,fechaCreacion: String,origen: String,destino: String,horaVuelo: String) = ReservaVuelo.creaInstancia(descripcion,fechaCreacion,origen,destino,horaVuelo)
-    private fun hacerReservaHotel(descripcion: String,fechaCreacion: String,ubicacion: String,numeroCoches: Int) = ReservaHotel.creaInstancia(descripcion,fechaCreacion,ubicacion,numeroCoches)
+    private fun hacerReservaHotel(descripcion: String,fechaCreacion: String,ubicacion: String,numeroNoches: Int) = ReservaHotel.creaInstancia(descripcion,fechaCreacion,ubicacion,numeroNoches)
 }
