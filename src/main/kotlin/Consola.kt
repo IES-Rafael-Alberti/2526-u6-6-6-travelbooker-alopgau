@@ -13,11 +13,12 @@ class Consola() {
         appendLine("Selecciona una opción:")
         appendLine("1) Hacer reserva")
         appendLine("2) Listar tus reservas")
-        appendLine("X para salir")
+        appendLine("X para retroceder")
     })
     fun mostrarOpcionesReserva() = println(buildString {
         appendLine("1) Reservar un vuelo")
         appendLine("2) Reservar un hotel")
+        appendLine("X para salir")
     })
     fun mostrarReservas(reservas: Map<Int, Reserva>) = println(buildString {
         reservas.forEach { id, reserva -> appendLine("ID: $id\n Detalles de la reserva: ${reserva.detalle}")  }

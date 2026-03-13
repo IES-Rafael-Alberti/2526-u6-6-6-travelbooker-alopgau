@@ -6,37 +6,40 @@ import dominio.ReservaVuelo
 import presentacion.Consola
 
 class ReservaService(private val repoReservas: IReservaRepositorio) {
-    fun ejecutar() {
-        do {
-        val entradaInicio = pantallaInicio()
-        if (entradaInicio.uppercase() == "X") {
-            consola.imprimirMensaje("Ejecución terminada")
-        } else {
-            procesarOpcionMenu()
-        }
-        } while (entradaInicio.uppercase() != "X")
-    }
+    private var estado = Estado.INCIANDO
     private val consola = Consola()
+    fun ejecutar() {
+        while (estado == Estado.INCIANDO) {
+        val entrada = pantallaInicio()
+        procesarOpcionMenu(entrada)
+        while (estado == Estado.RESERVANDO) {
+          val entrada = elegirReserva()
+            hacerReserva(entrada, "Reserva test", "2026-03-13")
+        }
+        }
+    }
     private fun pantallaInicio(): String {
         consola.menuPrincipal()
         return consola.pedirEntrada()
     }
-    private fun procesarOpcionMenu(entrada: String): String {
-        when (entrada) {
-            "1" -> elegirReserva()
+    private fun procesarOpcionMenu(entrada: String) {
+        when (entrada.uppercase()) {
+            "1" -> {
+                cambiarEstado(Estado.RESERVANDO)
+            }
             "2" -> listarReservas()
+            "X" -> cambiarEstado(Estado.TERMINADO)
             else -> consola.imprimirMensaje("Escoge una de las opciones indicadas")
         }
     }
 
-    private fun elegirReserva() {
+    private fun elegirReserva(): String {
         consola.mostrarOpcionesReserva()
-        val entrada = consola.pedirEntrada()
-        hacerReserva(entrada, "Reserva test", "2026-03-13")
+         return consola.pedirEntrada()
     }
 
-    private fun hacerReserva(entrada: String, descripcion: String,fechaCreacion: String) {
-        when (entrada) {
+    private fun hacerReserva(entrada: String, descripcion: String,fechaCreacion: String): Estado {
+        when (entrada.uppercase()) {
             "1" -> {
                 consola.imprimirMensaje("Introduce el origen del vuelo")
                 val origen = consola.pedirEntrada()
@@ -48,6 +51,7 @@ class ReservaService(private val repoReservas: IReservaRepositorio) {
                 val horaVuelo = consola.pedirEntrada()
 
                 repoReservas.agregarReserva(hacerReservaVuelo(descripcion,fechaCreacion, origen,destino,horaVuelo))
+                return cambiarEstado(Estado.INCIANDO)
             }
             "2" -> {
                 consola.imprimirMensaje("Introduce la ubicacion del hotel")
@@ -57,8 +61,13 @@ class ReservaService(private val repoReservas: IReservaRepositorio) {
                 val numeroNoches = consola.pedirEntrada().toIntOrNull()?:1
 
                 repoReservas.agregarReserva(hacerReservaHotel(descripcion,fechaCreacion,ubicacion,numeroNoches))
+                return cambiarEstado(Estado.INCIANDO)
             }
-            else -> consola.imprimirMensaje("Escoge una de las opciones indicadas")
+            "X" -> return cambiarEstado(Estado.INCIANDO)
+            else -> {
+                consola.imprimirMensaje("Escoge una de las opciones indicadas")
+                return cambiarEstado(Estado.RESERVANDO)
+            }
         }
     }
 
@@ -69,4 +78,8 @@ class ReservaService(private val repoReservas: IReservaRepositorio) {
     }
     private fun hacerReservaVuelo(descripcion: String,fechaCreacion: String,origen: String,destino: String,horaVuelo: String) = ReservaVuelo.creaInstancia(descripcion,fechaCreacion,origen,destino,horaVuelo)
     private fun hacerReservaHotel(descripcion: String,fechaCreacion: String,ubicacion: String,numeroNoches: Int) = ReservaHotel.creaInstancia(descripcion,fechaCreacion,ubicacion,numeroNoches)
+    private fun cambiarEstado(estado: Estado): Estado {
+        this.estado = estado
+        return this.estado
+    }
 }
