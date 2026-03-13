@@ -13,7 +13,7 @@ class ReservaVuelo private constructor(descripcion: String, fechaCreacion: Strin
     val destino = destino
     val horaVuelo = horaVuelo
     init {
-        regexHora.matches(fechaCreacion)
+        require(regexHora.matches(horaVuelo))
     }
 
     override fun toString() = "$descripcion\nOrigen: $origen\nDestino: $destino\nHora del vuelo: $horaVuelo"

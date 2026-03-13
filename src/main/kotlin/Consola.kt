@@ -9,19 +9,19 @@ package presentacion
 import dominio.Reserva
 
 class Consola() {
-    fun menuPrincipal() = buildString {
+    fun menuPrincipal() = println(buildString {
         appendLine("Selecciona una opción:")
         appendLine("1) Hacer reserva")
         appendLine("2) Listar tus reservas")
         appendLine("X para salir")
-    }
-    fun mostrarOpcionesReserva() = buildString {
+    })
+    fun mostrarOpcionesReserva() = println(buildString {
         appendLine("1) Reservar un hotel")
         appendLine("2) Reservar un vuelo")
-    }
-    fun mostrarReservas(reservas: Map<Int, Reserva>) = buildString {
+    })
+    fun mostrarReservas(reservas: Map<Int, Reserva>) = println(buildString {
         reservas.forEach { id, reserva -> appendLine("ID: $id\n Detalles de la reserva: ${reserva.detalle}")  }
-    }
+    })
 
     fun imprimirMensaje(mensaje: String) = println(mensaje)
 

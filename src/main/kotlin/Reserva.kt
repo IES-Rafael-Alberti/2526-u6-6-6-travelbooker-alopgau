@@ -19,6 +19,6 @@ open val detalle: String
     init {
         contador++
         id=contador
-        require(regex.matches(fechaCreacion) )
+        require(regex.matches(fechaCreacion))
     }
 }

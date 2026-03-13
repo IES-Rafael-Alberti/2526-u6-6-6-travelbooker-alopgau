@@ -6,18 +6,31 @@ import dominio.ReservaVuelo
 import presentacion.Consola
 
 class ReservaService(private val repoReservas: IReservaRepositorio) {
+    fun ejecutar() {
+        val entrada = pantallaInicio()
+        procesarOpcionMenu(entrada)
+    }
     private val consola = Consola()
-    fun iniciar(): String {
+    private fun pantallaInicio(): String {
         consola.menuPrincipal()
         return consola.pedirEntrada()
     }
-
-    fun elegirReserva(): String {
-        consola.mostrarOpcionesReserva()
-        return consola.pedirEntrada()
+    private fun procesarOpcionMenu(entrada: String) {
+        when (entrada) {
+            "1" -> elegirReserva()
+            "2" -> listarReservas()
+            "X" -> consola.imprimirMensaje("Ejecución terminada")
+            else -> consola.imprimirMensaje("Escoge una de las opciones indicadas")
+        }
     }
 
-    fun hacerReserva(entrada: String, descripcion: String,fechaCreacion: String) {
+    private fun elegirReserva() {
+        consola.mostrarOpcionesReserva()
+        val entrada = consola.pedirEntrada()
+        hacerReserva(entrada, "Reserva test", "2026-03-13")
+    }
+
+    private fun hacerReserva(entrada: String, descripcion: String,fechaCreacion: String) {
         when (entrada) {
             "1" -> {
                 consola.imprimirMensaje("Introduce el origen del vuelo")
@@ -29,21 +42,22 @@ class ReservaService(private val repoReservas: IReservaRepositorio) {
                 consola.imprimirMensaje("Introduce la hora del vuelo")
                 val horaVuelo = consola.pedirEntrada()
 
-                hacerReservaVuelo(descripcion,fechaCreacion, origen,destino,horaVuelo)
+                repoReservas.agregarReserva(hacerReservaVuelo(descripcion,fechaCreacion, origen,destino,horaVuelo))
             }
             "2" -> {
                 consola.imprimirMensaje("Introduce la ubicacion del hotel")
                 val ubicacion = consola.pedirEntrada()
 
-                hacerReservaHotel(descripcion,fechaCreacion,ubicacion,numeroCoches=90)
+                repoReservas.agregarReserva(hacerReservaHotel(descripcion,fechaCreacion,ubicacion,numeroCoches=90))
             }
             else -> consola.imprimirMensaje("Escoge una de las opciones indicadas")
         }
     }
 
-    fun listarReservas(): List<Reserva> {
+    private fun listarReservas(): List<Reserva> {
         consola.mostrarReservas(repoReservas.reservas)
-        return repoReservas.obtenerTodas()
+        if (repoReservas.obtenerTodas().isEmpty()) consola.imprimirMensaje("No hay reservas a tu nombre")
+            return repoReservas.obtenerTodas()
     }
     private fun hacerReservaVuelo(descripcion: String,fechaCreacion: String,origen: String,destino: String,horaVuelo: String) = ReservaVuelo.creaInstancia(descripcion,fechaCreacion,origen,destino,horaVuelo)
     private fun hacerReservaHotel(descripcion: String,fechaCreacion: String,ubicacion: String,numeroCoches: Int) = ReservaHotel.creaInstancia(descripcion,fechaCreacion,ubicacion,numeroCoches)
