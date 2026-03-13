@@ -7,19 +7,24 @@ import presentacion.Consola
 
 class ReservaService(private val repoReservas: IReservaRepositorio) {
     fun ejecutar() {
-        pantallaInicio()
+        do {
+        val entradaInicio = pantallaInicio()
+        if (entradaInicio.uppercase() == "X") {
+            consola.imprimirMensaje("Ejecución terminada")
+        } else {
+            procesarOpcionMenu()
+        }
+        } while (entradaInicio.uppercase() != "X")
     }
     private val consola = Consola()
-    private fun pantallaInicio() {
+    private fun pantallaInicio(): String {
         consola.menuPrincipal()
-        val entrada = consola.pedirEntrada()
-        procesarOpcionMenu(entrada)
+        return consola.pedirEntrada()
     }
-    private fun procesarOpcionMenu(entrada: String) {
+    private fun procesarOpcionMenu(entrada: String): String {
         when (entrada) {
             "1" -> elegirReserva()
             "2" -> listarReservas()
-            "X" -> consola.imprimirMensaje("Ejecución terminada")
             else -> consola.imprimirMensaje("Escoge una de las opciones indicadas")
         }
     }
