@@ -12,4 +12,7 @@ class ReservaHotel private constructor(descripcion: String, fechaCreacion: Strin
     val numeroCoches = numeroCoches
 
     override fun toString() = "$descripcion\nUbicacion: $ubicacion\n Numero de coches: $numeroCoches"
+    init {
+        require(regex.matches(fechaCreacion))
+    }
 }
