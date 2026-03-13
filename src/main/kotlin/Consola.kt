@@ -22,4 +22,8 @@ class Consola() {
     fun mostrarReservas(reservas: Map<Int, Reserva>) = buildString {
         reservas.forEach { id, reserva -> appendLine("ID: $id\n Detalles de la reserva: ${reserva.detalle}")  }
     }
+
+    fun imprimirMensaje(mensaje: String) = println(mensaje)
+
+    fun pedirEntrada() = readln()
 }

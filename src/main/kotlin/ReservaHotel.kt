@@ -1,8 +1,8 @@
 package dominio
 
-class ReservaHotel private constructor(descripcion: String, fechaCreacion: String, ubicacion: String, numeroCoches: String) : Reserva() {
+class ReservaHotel private constructor(descripcion: String, fechaCreacion: String, ubicacion: String, numeroCoches: Int) : Reserva() {
     companion object {
-        fun creaInstancia(descripcion: String,fechaCreacion: String,ubicacion: String,numeroCoches: String) = ReservaHotel(descripcion,fechaCreacion,ubicacion,numeroCoches)
+        fun creaInstancia(descripcion: String,fechaCreacion: String,ubicacion: String,numeroCoches: Int) = ReservaHotel(descripcion,fechaCreacion,ubicacion,numeroCoches)
     }
     override val descripcion = descripcion
     override val fechaCreacion = fechaCreacion
