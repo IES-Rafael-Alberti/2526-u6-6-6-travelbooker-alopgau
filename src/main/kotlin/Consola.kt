@@ -7,21 +7,26 @@ La capa de presentación debe comunicarse con la lógica de negocio a través de
 package presentacion
 
 import dominio.Reserva
+import com.github.ajalt.mordant.rendering.TextColors.*
+import com.github.ajalt.mordant.rendering.TextStyles.*
+import com.github.ajalt.mordant.terminal.Terminal
+import com.github.ajalt.mordant.rendering.TextColors.Companion.rgb
+
 
 class Consola() {
     fun menuPrincipal() = println(buildString {
-        appendLine("Selecciona una opción:")
-        appendLine("1) Hacer reserva")
-        appendLine("2) Listar tus reservas")
-        appendLine("X para retroceder")
+        appendLine(cyan("Selecciona una opción:"))
+        appendLine(brightYellow("1) Hacer reserva"))
+        appendLine(brightYellow("2) Listar tus reservas"))
+        appendLine(red("X para retroceder"))
     })
     fun mostrarOpcionesReserva() = println(buildString {
-        appendLine("1) Reservar un vuelo")
-        appendLine("2) Reservar un hotel")
-        appendLine("X para salir")
+        appendLine(brightYellow("1) Reservar un vuelo"))
+        appendLine(cyan("2) Reservar un hotel"))
+        appendLine(red("X para salir"))
     })
     fun mostrarReservas(reservas: Map<Int, Reserva>) = println(buildString {
-        reservas.forEach { id, reserva -> appendLine("ID: $id\n Detalles de la reserva: ${reserva.detalle}")  }
+        reservas.forEach { id, reserva -> appendLine(cyan("ID: $id\n Detalles de la reserva: ${reserva.detalle}"))  }
     })
 
     fun imprimirMensaje(mensaje: String) = println(mensaje)
