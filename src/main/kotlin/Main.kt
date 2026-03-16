@@ -1,5 +1,11 @@
 package org.practicatrim2
+import aplicacion.ReservaService
+import datos.RepoBase
 
 fun main() {
-    println("Hello World!")
+    val reservas = RepoBase()
+    val app = ReservaService(reservas)
+     app.ejecutar()
+
+
 }
