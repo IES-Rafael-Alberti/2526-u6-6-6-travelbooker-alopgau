@@ -5,6 +5,22 @@ import dominio.ReservaHotel
 import dominio.ReservaVuelo
 import presentacion.Consola
 import presentacion.Mensajes
+/*
+Servicio principal que orquesta el flujo de la aplicación TravelBooker.
+*
+* Esta clase implementa la lógica de negocio y coordina las interacciones entre
+* la interfaz de usuario y el repositorio de datos. Gestiona el ciclo completo
+* de creación y listado de reservas, manteniendo una máquina de estados que
+* controla el flujo de la aplicación.
+*
+* @param T El tipo de clave utilizado por el repositorio para almacenar las reservas
+* @param repoReservas Repositorio que gestiona la persistencia de las reservas
+*
+* @property estado Estado actual de la aplicación (INICIANDO, RESERVANDO, TERMINADO)
+* @property consola Interfaz de usuario para la comunicación con el cliente
+*/
+
+
 
 class  ReservaService<T>(private val repoReservas: IReservaRepositorio<T>) {
     private var estado = Estado.INCIANDO
