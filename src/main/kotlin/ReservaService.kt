@@ -4,10 +4,11 @@ import dominio.Reserva
 import dominio.ReservaHotel
 import dominio.ReservaVuelo
 import presentacion.Consola
+import presentacion.Mensajes
 
 class  ReservaService<T>(private val repoReservas: IReservaRepositorio<T>) {
     private var estado = Estado.INCIANDO
-    private val consola = Consola()
+    private val consola : Mensajes = Consola()
     fun ejecutar() {
         while (estado == Estado.INCIANDO) {
         val entrada = pantallaInicio()
