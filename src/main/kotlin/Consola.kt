@@ -13,23 +13,23 @@ import com.github.ajalt.mordant.terminal.Terminal
 import com.github.ajalt.mordant.rendering.TextColors.Companion.rgb
 
 
-class Consola() {
-    fun menuPrincipal() = println(buildString {
+class Consola(): Mensajes {
+    override fun menuPrincipal() = println(buildString {
         appendLine(cyan("Selecciona una opción:"))
         appendLine(brightYellow("1) Hacer reserva"))
         appendLine(brightYellow("2) Listar tus reservas"))
         appendLine(red("X para retroceder"))
     })
-    fun mostrarOpcionesReserva() = println(buildString {
+    override fun mostrarOpcionesReserva() = println(buildString {
         appendLine(brightYellow("1) Reservar un vuelo"))
         appendLine(cyan("2) Reservar un hotel"))
         appendLine(red("X para salir"))
     })
-    fun mostrarReservas(reservas: Map<Int, Reserva>) = println(buildString {
+    override fun <T> mostrarReservas(reservas: Map<T, Reserva>) = println(buildString {
         reservas.forEach { id, reserva -> appendLine(cyan("ID: $id\n Detalles de la reserva: ${reserva.detalle}"))  }
     })
 
-    fun imprimirMensaje(mensaje: String) = println(mensaje)
+    override fun imprimirMensaje(mensaje: String) = println(mensaje)
 
-    fun pedirEntrada() = readln()
+    override fun pedirEntrada() = readln()
 }

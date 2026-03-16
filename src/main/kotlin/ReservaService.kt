@@ -5,7 +5,7 @@ import dominio.ReservaHotel
 import dominio.ReservaVuelo
 import presentacion.Consola
 
-class ReservaService(private val repoReservas: IReservaRepositorio) {
+class  ReservaService<T>(private val repoReservas: IReservaRepositorio<T>) {
     private var estado = Estado.INCIANDO
     private val consola = Consola()
     fun ejecutar() {
