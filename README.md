@@ -281,7 +281,9 @@ Ejemplo:
 
 <img width="557" height="185" alt="image" src="https://github.com/user-attachments/assets/4f8c8b42-e097-4a8d-b63a-1a334e557cf7" />
 
-8) 
+8) Utilizando KDoc he documentado brevemente la clase ReservaService ya que al ser la clase más compleja del programa tanto en estructura como en lógica creo que es donde la documentación puede aportar más valor, sabiendo que el fin de esta es el hacer el código más accesible y por tanto mantenible para todo el mundo
+   
+   https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/7c21494b80046332c0d0f1f8292a0c66cf57fbf4/src/main/kotlin/ReservaService.kt#L8-L21
 
 9) Genericos he usado en la interfaz ReservaRepositorio, pensando que, aunque ahora mismo (en RepoBase, la única clase que implementa esta interfaz) las reservas se asocian en el diccionario por su id, quizas mañana queremos crear otro repositorio que asocie las reservas por detalle (por ejemplo).
 
