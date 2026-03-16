@@ -167,3 +167,46 @@ Este conjunto de preguntas está diseñado para ayudarte a reflexionar sobre có
 #### **Criterio global 10: Expresiones Regulares**
 - **(6.g)**: Muestra ejemplos de tu código donde hayas utilizado las expresiones regulares. ¿Qué beneficio has obtenido?
 
+# Entrega de la Práctica
+
+1) Los constructores de las clases ReservaVuelo y ReservaHotel son privados tal como pedía el enunciado, por lo que los objetos de las mismas se crean mediante los companion object `creaInstancia`. En cuanto a las demás clases (excluyendo la clase abstracta Reserva y la interfaz Repositorio ya que no se pueden instanciar) todas se instancian de forma normal, pasándole parámetros al constructor (primario en este caso, ya que ninguna clase tiene constructor secundario) Uso objetos de distintas formas a lo largo del código, por ejemplo el objeto Reserva es simplemente para almacenar información de las reservas, mientras que las instancias de Consola o ReservaService si que tienen métodos que les aportan utilidad por si mismos (en este caso, el ReservaService representa la app del travelbooker en si, y gestiona toda la logica de la misma, mientras que la consola por composición actúa a modo de UI gestionando las entradas y salidas de información de la app)
+
+   - Ejemplo companion obj 1
+  
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaHotel.kt#L3-L6
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaService.kt#L79-L80
+
+    - Ejemplo companion obj 2
+    
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaService.kt#L79-L80
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaVuelo.kt#L3-L5
+
+    - Ejemplo instancia clase normal
+    
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaService.kt#L10
+
+     - Ejemplo uso consola + logica
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaService.kt#L41-L70
+
+2) Como companion object he puesto los metodos creaInstancia en ReservaVuelo y ReservaHotel, ya que solo la clase puede acceder a su constructor al ser privado y por tanto es la unica forma de instanciar dichas clases desde fuera, también he puesto sus respectivas expresiones regulares de fecha y hora como companion obj ya que son una constante para todas las instancias de las mismas y las utilizo para validaciones en el init
+
+- Comp obj 1
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaVuelo.kt#L3-L7
+
+- Comp obj 2
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaHotel.kt#L3-L6
+
+- Ejemplo uso
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaService.kt#L79-L80
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322ddf53cf24cc2c7ed2d35c07651d89e5c2272/src/main/kotlin/ReservaService.kt#L41-L63
+
+3) El IDE me ha ayudado a la hora tanto de escribir el código, (autocompletado de metodos al escribir . y tabular), gestion de la estructura del proyecto (intellij idea es muy visual para mostrar una estructura de clases, con iconos distintos según sea interfaz, clase al uso, enum...), gestion de dependencias (junto con gradle es todo muy rápido, simplemente acceder al build y pegar unas líneas, util a la hora de instalar mordant) y depuración del código (con el debugger siguiendo el codigo paso a paso)
+
+
+
