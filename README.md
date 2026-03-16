@@ -208,5 +208,88 @@ https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/1322
 
 3) El IDE me ha ayudado a la hora tanto de escribir el código, (autocompletado de metodos al escribir . y tabular), gestion de la estructura del proyecto (intellij idea es muy visual para mostrar una estructura de clases, con iconos distintos según sea interfaz, clase al uso, enum...), gestion de dependencias (junto con gradle es todo muy rápido, simplemente acceder al build y pegar unas líneas, util a la hora de instalar mordant) y depuración del código (con el debugger siguiendo el codigo paso a paso)
 
+4) Ejemplo:
+- Clase base Reserva
 
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/4ee164b20ec6dd668618eb2d089884817de54e17/src/main/kotlin/Reserva.kt#L1-L23
+
+- Clase ReservaHotel
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/4ee164b20ec6dd668618eb2d089884817de54e17/src/main/kotlin/ReservaHotel.kt#L1-L18
+  
+- Clase ReservaVuelo
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/4ee164b20ec6dd668618eb2d089884817de54e17/src/main/kotlin/ReservaVuelo.kt#L3-L21
+
+Reserva:
+- companion object contador, que se incrementa en 1 cada vez que se instancia la clase
+- Regex de fechas tambien como companion object
+- id, que se asigna al numero del contador mencionado cada vez q se instancia, generando un id unico cada vez
+- Los atributos (abstractos, ya que le asignaremos valores al instanciar las subclases) fechaCreacion y descripción, ambos strings
+- El atributo detalle, que por defecto es `$id-$descripcion` pero está abierto a herencia 
+
+ReservaHotel:
+
+companion object creaInstancia() para acceder al constructor privado
+se sobreescribe la descripcion y fechaCreacion para que tomen el valor pasado por constructor
+Se sobreescribe detalle, de forma que como era open ahorramos codigo llamando a super y concatenando las nuevas propiedades
+se añade la propiedad ubicacion y numerocoches, que toman los valores del constructor
+Se sobreescribe toString para que muestre todas las propiedades en texto
+
+ReservaVuelo:
+
+companion object creaInstancia() para acceder al constructor privado
+companion object regex hora 
+se sobreescribe la descripcion y fechaCreacion para que tomen el valor pasado por constructor
+Se sobreescribe detalle, de forma que como era open ahorramos codigo llamando a super y concatenando las nuevas propiedades
+se añade la propiedad horaVuelo, origen y destino que toman los valores del constructor
+Se sobreescribe toString para que muestre todas las propiedades en texto
+
+Todo publico ya que son atributos a los que voy a necesitar acceder para la logica del travelbooker 
+
+5) El ejemplo de herencia creo que queda clara por lo explicado en la pregunta anterior, donde vemos que es util para la asignacion de ids, la modificación del atributo detalle, y en general es necesaria porque necesito tener propiedades comunes a todas las reservas
+En cuanto a la implementación de interfaces tengo una clase RepoBase que implementa la interfaz IReservaRepositorio, que le obliga a implementar un diccionario con clave tipo T y reservas como valor, en este caso de RepoBase el tipo T es un int que corresponde al id de la reserva, pero la idea es que se puedan implementar otros repositorios que asocien las reservas de distinta forma (por detalle por ejemplo) de ahí el tipo T en la interfaz 
+
+La consola implementa la interfaz mensajes para desacoplar todavia mas la parte de UI, de forma que si queremos "cambiar de medio" solo habría que crear otra clase
+
+Por todo esto, los principios SOLID que aplico en mi código son principalmente SRP y DIP aunque también hago LSP en las reservas
+
+**ReservaService:**
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/ReservaService.kt#L9-L86
+
+**Interfaz repositorio:**
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/IReservaRepositorio.kt#L1-L8
+
+**Interfaz mensajes:**
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/Mensajes.kt#L1-L12
+
+**Consola**:
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/Consola.kt#L16-L35
+
+**RepoBase:**
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/RepoBase.kt#L1-L9
+
+6) La unica jerarquia de clases que aplico es la ya mencionada de las reservas que es una especialización
+
+7) He usado la libreria mordant que añade funciones de personalización visual a la terminal, permitiendo añadir colores, tablas, barras de progreso. La incorporé yendo a Maven Central, buscando la dependencia y copiandola en el build.gradle.kts
+
+Ejemplo: 
+
+<img width="557" height="185" alt="image" src="https://github.com/user-attachments/assets/4f8c8b42-e097-4a8d-b63a-1a334e557cf7" />
+
+8) 
+
+9) Genericos he usado en la interfaz ReservaRepositorio, pensando que, aunque ahora mismo (en RepoBase, la única clase que implementa esta interfaz) las reservas se asocian en el diccionario por su id, quizas mañana queremos crear otro repositorio que asocie las reservas por detalle (por ejemplo).
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/IReservaRepositorio.kt#L1-L8
+
+10) Expresiones regulares he usado 2, una en ReservaVuelo para validar la hora y otra en la clase padre Reserva para validar las fechas. Aportan valor en el sentido de que de esta forma garantizamos que el usuario solo pueda introducir texto en el formato que nos interesa, útil en este contexto, donde debemos validar fecha y hora
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/Reserva.kt#L9-L12
+
+https://github.com/IES-Rafael-Alberti/2526-u6-6-6-travelbooker-alopgau/blob/bfa1d118de41aea2eb78bc9b1a05c05213a86424/src/main/kotlin/ReservaVuelo.kt#L3-L6
 
